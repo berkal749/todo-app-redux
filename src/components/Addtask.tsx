@@ -1,18 +1,32 @@
-import { Input } from "@/components/ui/input"
-import { Button } from "./ui/button"
-
-import React from 'react'
-
-export default function Addtask() {
-  return (
-    <div>
-<Input ></Input>
-<Button >Add</Button>
+import type React from 'react';
+import { useState } from 'react'
+import { addTask } from "../taskSlice";
+import { useDispatch } from "react-redux";
 
 
 
 
 
-    </div>
-  )
-}
+  
+  export default function Addtask() {
+    const dispatch = useDispatch();
+    function addHandler(description) {
+    if (description) {
+    dispatch(addTask(description));
+  }
+  }
+    const [inputValue, setInputValue] = useState<string>("");
+    return (
+      <div>
+        <input type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)} />
+        <button onClick={() => {  addHandler(inputValue)}}>add</button>
+
+
+
+
+
+      </div>
+    )
+  }

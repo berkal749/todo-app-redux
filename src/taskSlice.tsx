@@ -8,7 +8,6 @@ const initialState = {
     ],
 };
 const taskSlice = createSlice({
-
     name: "task",
     initialState,
     reducers: {
@@ -30,16 +29,9 @@ const taskSlice = createSlice({
            const task2 = {description: action.payload.description, id:action.payload.id, isDone: false, modifiy: false}
             state.tasks = state.tasks.filter(t => t.id != task2.id);
             state.tasks.push(task2)
-
-
-    
-    
-   
-
             
         },
-        
-       
+    
         closeModifiy: (state, action) => {
 
             state.tasks.find(task => task.id == action.payload.id).modifiy = false;
@@ -50,11 +42,21 @@ const taskSlice = createSlice({
             state.tasks.find(task => task.id == action.payload.id).modifiy = true;
             
         },
+        doneUnDone: (state, action) => {
+            const task2 = {description: action.payload.description, id:action.payload.id, isDone:!action.payload.isDone, modifiy: false}
+            state.tasks = state.tasks.filter(t => t.id != task2.id);
+            state.tasks.push(task2)
+
+            
+            
+        },
+        
 
 
     },
 
 
 });
-export const { addTask, removeTask, modifiyTask , closeModifiy , openModifiy } = taskSlice.actions;
+
+export const { addTask, removeTask, modifiyTask , closeModifiy , openModifiy ,doneUnDone} = taskSlice.actions;
 export default taskSlice.reducer;

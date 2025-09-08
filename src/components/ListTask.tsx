@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { removeTask, closeModifiy, openModifiy, modifiyTask } from "../taskSlice";
+import { removeTask, closeModifiy, openModifiy, modifiyTask, doneUnDone } from "../taskSlice";
 import { useDispatch } from "react-redux";
+
 
 
 export default function ListTask() {
@@ -10,6 +11,8 @@ export default function ListTask() {
 
 
   const [inputValue, setInputValue] = useState<string>("");
+  const [filterCondtion, setFilterCondtion] = useState<boolean | undefined>(true);
+
 
 
   function removeHandler(targetTask) {
@@ -31,36 +34,47 @@ export default function ListTask() {
       description: description
     }));
   }
+  function doneUnDoneHandler(isDone) {
+    dispatch(doneUnDone(isDone));
+  }
+
+
+
 
 
   function modifiyHandlerOpen(task) {
     dispatch(openModifiy(task));
   }
 
+
   return (
-    <div >  {
+    <div >
+      <button onClick={() => { setFilterCondtion(!filterCondtion) }}>filter</button>{
 
-      tasks.map(task => (
+        tasks.filter(task => task.isDone == filterCondtion).map(task => (
 
-        <div className='border-4' key={task.id}>
-          {
-            task.modifiy ? (
-              <div>
-                <input
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)} />
-                <button onClick={() => { modifiyhandler(task, inputValue); modifiyHandlerClose(task); }}>Save</button>
-              </div>
-            ) : (
-              <div>
-                <p>{task.description}</p>
-                <button onClick={() => { modifiyHandlerOpen(task); }}>modify</button>
-                <button onClick={() => removeHandler(task)}>delete</button>
-              </div>
-            )}
-        </div>
-      ))
-    }
+          <div className='border-4' key={task.id}>
+            {
+              task.modifiy ? (
+                <div>
+                  <input
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)} />
+                  <button onClick={() => { modifiyhandler(task, inputValue); modifiyHandlerClose(task); }}>Save</button>
+
+                </div>
+              ) : (
+                <div>
+                  <p>{task.description}</p>
+                  {task.isDone ? (<p>is done</p>) : (<p>is not done</p>)}
+                  <button onClick={() => { modifiyHandlerOpen(task); }}>modify</button>
+                  <button onClick={() => removeHandler(task)}>delete</button>
+                  {task.isDone ? (<button onClick={() => doneUnDoneHandler(task)}>done</button>) : (<button onClick={() => doneUnDoneHandler(task)}>unDone</button>)}
+                </div>
+              )}
+          </div>
+        ))
+      }
     </div>
   )
 }
