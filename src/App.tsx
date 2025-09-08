@@ -1,4 +1,4 @@
-
+import ListTask from "./components/ListTask"
 
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      
+      <ListTask></ListTask>
     </>
   )
 }

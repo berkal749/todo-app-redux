@@ -7,7 +7,7 @@ export default function Addtask() {
   return (
     <div>
 <Input ></Input>
-<Button onClick={}>Add</Button>
+<Button >Add</Button>
 
 
 

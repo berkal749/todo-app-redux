@@ -2,8 +2,9 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     tasks: [
-        { description: "go code", id: 1, isDone: true },
-        { description: "go sleep", id: 2, isDone: false },
+        { description: "go code", id: 1, isDone: true, modifiy: false },
+        { description: "go sleep", id: 2, isDone: false, modifiy: false },
+        { description: "go sleep", id: 3, isDone: false, modifiy: false },
     ],
 };
 const taskSlice = createSlice({
@@ -12,17 +13,48 @@ const taskSlice = createSlice({
     initialState,
     reducers: {
         addTask: (state, action) => {
-            state.tasks.push(action.payload);
+
+       const task ={ description: action.payload, id: state.tasks.length+1 , isDone: true, modifiy: false }
+
+            state.tasks.push(task);
         },
 
-         removeTask: (state, action) => {
-            state.tasks.filter(task=>task.id==action.payload.id);
-        }
+        removeTask: (state, action) => {
+
+            state.tasks = state.tasks.filter(task => task.id != action.payload.id);
+            console.log("hey");
+        },
+
+        modifiyTask: (state, action) => {
+
+           const task2 = {description: action.payload.description, id:action.payload.id, isDone: false, modifiy: false}
+            state.tasks = state.tasks.filter(t => t.id != task2.id);
+            state.tasks.push(task2)
+
+
+    
+    
+   
+
+            
+        },
+        
+       
+        closeModifiy: (state, action) => {
+
+            state.tasks.find(task => task.id == action.payload.id).modifiy = false;
+            
+        },
+         openModifiy: (state, action) => {
+
+            state.tasks.find(task => task.id == action.payload.id).modifiy = true;
+            
+        },
 
 
     },
 
 
 });
-export const {addTask, removeTask} = taskSlice.actions;
+export const { addTask, removeTask, modifiyTask , closeModifiy , openModifiy } = taskSlice.actions;
 export default taskSlice.reducer;
