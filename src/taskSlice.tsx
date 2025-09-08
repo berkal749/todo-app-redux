@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     tasks: [
-        { description: "go code", id: 1, isDone: true, modifiy: false },
+        { description: "go code", id: 1, isDone: FileSystemHandle, modifiy: false },
         { description: "go sleep", id: 2, isDone: false, modifiy: false },
         { description: "go sleep", id: 3, isDone: false, modifiy: false },
     ],
@@ -45,16 +45,9 @@ const taskSlice = createSlice({
         doneUnDone: (state, action) => {
             const task2 = {description: action.payload.description, id:action.payload.id, isDone:!action.payload.isDone, modifiy: false}
             state.tasks = state.tasks.filter(t => t.id != task2.id);
-            state.tasks.push(task2)
-
-            
-            
+            state.tasks.push(task2)   
         },
-        
-
-
     },
-
 
 });
 

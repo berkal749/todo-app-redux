@@ -17,8 +17,9 @@ import { useDispatch } from "react-redux";
   }
     const [inputValue, setInputValue] = useState<string>("");
     return (
-      <div>
+      <div className='flex flex-col  justify-center items-center mt-6'>
         <input type="text"
+         className=' border-fuchsia-800 border-4'
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)} />
         <button onClick={() => {  addHandler(inputValue)}}>add</button>
