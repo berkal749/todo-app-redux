@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { removeTask, closeModifiy, openModifiy, modifiyTask, doneUnDone } from "../taskSlice";
 import { useDispatch } from "react-redux";
 
-
+import { useState } from 'react';
 
 export default function ListTask() {
   const dispatch = useDispatch();
