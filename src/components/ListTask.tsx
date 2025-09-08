@@ -51,10 +51,10 @@ export default function ListTask() {
               ) : (
                 <div className='border-4  border-b-fuchsia-800'>
                   <p>{task.description}</p>
-                  {task.isDone ? (<p>is done</p>) : (<p>is not done</p>)}
+                  {!task.isDone ? (<p>is done</p>) : (<p>is not done</p>)}
                   <button className='m-5' onClick={() => { modifiyHandlerOpen(task); }}>modify</button>
                   <button className='m-5' onClick={() => removeHandler(task)}>delete</button>
-                  {!task.isDone ? (<button className='m-5' onClick={() => doneUnDoneHandler(task)}>done</button>) : (<button className='m-5' onClick={() => doneUnDoneHandler(task)}>unDone</button>)}
+                  {task.isDone ? (<button className='m-5' onClick={() => doneUnDoneHandler(task)}>done</button>) : (<button className='m-5' onClick={() => doneUnDoneHandler(task)}>unDone</button>)}
                 </div>
               )}
           </div>
